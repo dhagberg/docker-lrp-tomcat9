@@ -14,8 +14,8 @@ tarf=apache-tomcat-${TOMCAT_VERS}.tar.gz
 tinif=tini_${TINI_VERS}-amd64.rpm
 wget --no-verbose http://www-us.apache.org/dist/tomcat/tomcat-8/v${TOMCAT_VERS}/bin/$tarf
 wget --no-verbose https://github.com/krallin/tini/releases/download/v${TINI_VERS}/$tinif
-echo "${TOMCAT_SHA1}  ${tarf}" | sha1sum -c -
-echo "${TINI_SHA1}  ${tinif}" | sha1sum -c -
+echo "${TOMCAT_SHA5}  ${tarf}" | sha512sum -c -
+echo "${TINI_SHA5}  ${tinif}" | sha512sum -c -
 yum -y localinstall ${tinif}
 gzip -dc ${tarf} | tar -C $CATALINA_HOME --strip-components=1 -xvf -
 /bin/rm -r ${tarf}
