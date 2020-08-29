@@ -1,4 +1,4 @@
-FROM dhagberg/co811-java:latest
+FROM svn.co811.org:5000/co811-java:latest
 MAINTAINER D. J. Hagberg <dhagberg@millibits.com>
 
 ENV CATALINA_HOME /usr/local/tomcat
