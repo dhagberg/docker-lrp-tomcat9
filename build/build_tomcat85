@@ -1,4 +1,5 @@
 #!/bin/bash
+set -o pipefail
 set -xe
 
 # Set java network TTL and random entropy device
@@ -21,6 +22,12 @@ gzip -dc ${tarf} | tar -C $CATALINA_HOME --strip-components=1 -xvf -
 /bin/rm -r ${tarf}
 yum -y clean all
 rm -rf /var/cache/yum
+
+# Copy over settings and dependencies to enable Tomcat logging through Log4j 2.x
+(cd /root/build && tar cf - bin lib log4j2) | (cd $CATALINA_HOME && tar xvf -)
+
+# Remove logging.properties to enable Log4j 2.x LoggingManager
+/bin/rm -f $CATALINA_HOME/conf/logging.properties
 
 cd $CATALINA_HOME
 mkdir -p conf/Catalina/localhost
