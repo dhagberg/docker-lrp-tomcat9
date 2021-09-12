@@ -13,7 +13,7 @@ useradd -u 91 -g webgroup -c Tomcat -s /sbin/nologin tomcat
 cd /root/build
 tarf=apache-tomcat-${TOMCAT_VERS}.tar.gz
 tinif=tini_${TINI_VERS}-amd64.rpm
-wget --no-verbose http://www-us.apache.org/dist/tomcat/tomcat-8/v${TOMCAT_VERS}/bin/$tarf
+wget --no-verbose https://dlcdn.apache.org/tomcat/tomcat-8/v${TOMCAT_VERS}/bin/$tarf
 wget --no-verbose https://github.com/krallin/tini/releases/download/v${TINI_VERS}/$tinif
 echo "${TOMCAT_SHA5}  ${tarf}" | sha512sum -c -
 echo "${TINI_SHA5}  ${tinif}" | sha512sum -c -
