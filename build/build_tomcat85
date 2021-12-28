@@ -26,6 +26,35 @@ rm -rf /var/cache/yum
 # Copy over settings and dependencies to enable Tomcat logging through Log4j 2.x
 (cd /root/build && tar cf - bin lib log4j2) | (cd $CATALINA_HOME && tar xvf -)
 
+# Download and install required log4j2 components
+pushd /root/build/log4j2
+echo "LOG4J2 importing GPG KEYS ..."
+gpg --import KEYS
+echo "LOG4J2 downloading $LOG4J2_VERS gpg *.asc signature ..."
+curl -fsSL -o log4j-bin.tar.gz.asc \
+  https://downloads.apache.org/logging/log4j/$LOG4J2_VERS/apache-log4j-$LOG4J2_VERS-bin.tar.gz.asc
+echo "LOG4J2 downloading $LOG4J2_VERS tarball ..."
+curl -fsSL -o log4j-bin.tar.gz \
+  https://dlcdn.apache.org/logging/log4j/$LOG4J2_VERS/apache-log4j-$LOG4J2_VERS-bin.tar.gz
+echo "LOG4J2 verifying $LOG4J2_VERS tarball with gpg *.asc signature ..."
+gpg --verify log4j-bin.tar.gz.asc
+echo "LOG4J2 verified OK"
+
+echo "LOG4J2 extracting to $CATALINA_HOME/log4j2 ..."
+tar -zxvf log4j-bin.tar.gz -C $CATALINA_HOME/log4j2 --strip-components=1 \
+  "*/log4j-api-$LOG4J2_VERS.jar" \
+  "*/log4j-core-$LOG4J2_VERS.jar" \
+  "*/log4j-jul-$LOG4J2_VERS.jar" \
+  "*/log4j-appserver-$LOG4J2_VERS.jar"
+echo "LOG4J2 extracting to $CATALINA_HOME/lib ..."
+tar -zxvf log4j-bin.tar.gz -C $CATALINA_HOME/lib --strip-components=1 \
+  "*/log4j-1.2-api-$LOG4J2_VERS.jar" \
+  "*/log4j-jcl-$LOG4J2_VERS.jar" \
+  "*/log4j-slf4j-impl-$LOG4J2_VERS.jar"
+/bin/rm -f log4j-bin.tar.gz log4j-bin.tar.gz.asc
+echo "LOG4J2 extracted OK"
+popd
+
 # Remove logging.properties to enable Log4j 2.x LoggingManager
 /bin/rm -f $CATALINA_HOME/conf/logging.properties
 
