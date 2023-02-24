@@ -5,7 +5,7 @@ set -xe
 # Set java network TTL and random entropy device
 sed -e '/^securerandom.source=/s/\/dev\/random/\/dev\/.\/urandom/' \
     -e 's/^#networkaddress.cache.ttl=.*/networkaddress.cache.ttl=120/' \
-    -i- /usr/lib/jvm/jre/lib/security/java.security
+    -i- /usr/lib/jvm/jre/conf/security/java.security
 
 # Set up tomcat group and user
 groupadd -g 92 webgroup
@@ -13,7 +13,7 @@ useradd -u 91 -g webgroup -c Tomcat -s /sbin/nologin tomcat
 cd /root/build
 tarf=apache-tomcat-${TOMCAT_VERS}.tar.gz
 tinif=tini_${TINI_VERS}-amd64.rpm
-wget --no-verbose https://dlcdn.apache.org/tomcat/tomcat-8/v${TOMCAT_VERS}/bin/$tarf
+wget --no-verbose https://dlcdn.apache.org/tomcat/tomcat-9/v${TOMCAT_VERS}/bin/$tarf
 wget --no-verbose https://github.com/krallin/tini/releases/download/v${TINI_VERS}/$tinif
 echo "${TOMCAT_SHA5}  ${tarf}" | sha512sum -c -
 echo "${TINI_SHA5}  ${tinif}" | sha512sum -c -
