@@ -1,4 +1,4 @@
-FROM svn.co811.org:5000/lrp-java:latest
+FROM cga-ci:5000/lrp-java:latest
 MAINTAINER D. J. Hagberg <dhagberg@millibits.com>
 
 ENV CATALINA_HOME /usr/local/tomcat
