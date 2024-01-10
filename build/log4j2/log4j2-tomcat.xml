@@ -20,5 +20,8 @@
     <Logger name="org.apache.catalina.core.ContainerBase.[Catalina].[localhost]" level="info" additivity="false">
       <AppenderRef ref="CATALINA"/>
     </Logger>
+    <Logger name="org.springframework.security" level="debug" additivity="false">
+      <AppenderRef ref="STDOUT"/>
+    </Logger>
   </Loggers>
 </Configuration>
