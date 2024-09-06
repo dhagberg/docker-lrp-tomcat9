@@ -1,3 +1,3 @@
 #!/bin/bash
 set -xe
-exec docker run --rm -ti dhagberg/lrp-tomcat9 ${1+"$@"}
+exec docker run --rm -ti dhagberg/lrp-u-tomcat9 ${1+"$@"}
