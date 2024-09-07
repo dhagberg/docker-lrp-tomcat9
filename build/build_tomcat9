@@ -12,6 +12,9 @@ done
 # Set up tomcat group and user
 groupadd -g 92 webgroup
 useradd -u 91 -g webgroup -c Tomcat -s /sbin/nologin tomcat
+mkdir -p ~tomcat
+chown -r tomcat:webgroup ~tomcat
+chmod -R o-rwx ~tomcat
 cd /root/build
 tarf=apache-tomcat-${TOMCAT_VERS}.tar.gz
 tinif=tini_${TINI_VERS}-amd64.deb
