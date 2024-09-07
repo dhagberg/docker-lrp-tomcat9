@@ -13,7 +13,7 @@ done
 groupadd -g 92 webgroup
 useradd -u 91 -g webgroup -c Tomcat -s /sbin/nologin tomcat
 mkdir -p ~tomcat
-chown -r tomcat:webgroup ~tomcat
+chown -R tomcat:webgroup ~tomcat
 chmod -R o-rwx ~tomcat
 cd /root/build
 tarf=apache-tomcat-${TOMCAT_VERS}.tar.gz
